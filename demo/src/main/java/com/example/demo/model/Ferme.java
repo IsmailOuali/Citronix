@@ -23,6 +23,6 @@ public class Ferme {
 
     private LocalDate dateCreation;
 
-    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
-    private List<Champ> champs;
+//    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
+//    private List<Champ> champs;
 }

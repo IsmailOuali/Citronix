@@ -16,10 +16,10 @@ public class Champ {
 
     private double superficie;
 
-    @ManyToOne
-    @JoinColumn(name = "ferme_id")
-    private Ferme ferme;
-
-    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
-    private List<Arbre> arbres;
+//    @ManyToOne
+//    @JoinColumn(name = "ferme_id")
+//    private Ferme ferme;
+//
+//    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
+//    private List<Arbre> arbres;
 }
