@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface fermeService {
     Ferme addFerme(Ferme ferme);
-    Ferme updateFerme(UUID fermeId, Ferme ferme);
+    Ferme updateFerme(Ferme ferme);
     void deleteFermeById(UUID ferme);
     Ferme getFermeById(UUID id);
     List<Ferme> getAllFermes();
