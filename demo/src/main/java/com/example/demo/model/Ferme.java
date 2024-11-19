@@ -1,11 +1,10 @@
-package com.example.model;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
-import com.example.model.Champ;
 
 @Data
 @Entity

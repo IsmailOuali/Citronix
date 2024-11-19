@@ -1,6 +1,5 @@
-package com.example.yourproject.model;
+package com.example.demo.model;
 
-import com.example.model.Recolte;
 import jakarta.persistence.*;
 import lombok.Data;
 
