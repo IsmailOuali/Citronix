@@ -5,6 +5,7 @@ import com.example.demo.DTO.FermeDTO;
 import com.example.demo.mapper.FermeMapper;
 import com.example.demo.model.Ferme;
 import com.example.demo.service.FermeService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +21,23 @@ public class FermeController {
     @Autowired
     private FermeService fermeService;
 
+    @Autowired
+    private FermeMapper fermeMapper;
 
     @GetMapping
-    public List<Ferme> getAllFermes(){
+    public List<Ferme> getAllFermes() {
         return fermeService.getAllFermes();
     }
 
     @PostMapping
-    public ResponseEntity<FermeDTO> createFerme(@RequestBody FermeDTO fermDTO) {
-        Ferme ferm = FermeMapper.toEntity(fermDTO);
+    public ResponseEntity<FermeDTO> createFerme(@RequestBody FermeDTO fermeDTO) {
+        Ferme ferme = fermeMapper.toEntity(fermeDTO); // Use instance method
 
-        Ferme savedFerm = fermeService.addFerme(ferm);
+        Ferme savedFerme = fermeService.addFerme(ferme);
 
-        FermeDTO savedFermDTO = FermeMapper.toDTO(savedFerm);
+        FermeDTO savedFermeDTO = fermeMapper.toDto(savedFerme); // Use instance method
 
-        return new ResponseEntity<>(savedFermDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedFermeDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -60,9 +63,10 @@ public class FermeController {
 
         Ferme updatedFerme = fermeService.addFerme(existingFerme);
 
-        FermeDTO updatedFermeDTO = FermeMapper.toDTO(updatedFerme);
+        FermeDTO updatedFermeDTO = fermeMapper.toDto(updatedFerme); // Use instance method
         return new ResponseEntity<>(updatedFermeDTO, HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFerme(@PathVariable UUID id) {
         Ferme existingFerme = fermeService.getFermeById(id);
@@ -74,8 +78,8 @@ public class FermeController {
         fermeService.deleteFermeById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
+
 
 
 

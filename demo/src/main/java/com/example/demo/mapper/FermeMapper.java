@@ -1,21 +1,16 @@
 package com.example.demo.mapper;
 
-
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Ferme;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-public class FermeMapper {
-    public static Ferme toEntity(FermeDTO fermDTO) {
-        Ferme ferme = new Ferme();
-        ferme.setNom(fermDTO.getNom());
-        ferme.setLocalisation(fermDTO.getLocalisation());
-        return ferme;
-    }
+@Mapper(componentModel = "spring")
+public interface FermeMapper {
 
-    public static FermeDTO toDTO(Ferme ferme) {
-        FermeDTO fermeDTO = new FermeDTO();
-        fermeDTO.setNom(ferme.getNom());
-        fermeDTO.setLocalisation(ferme.getLocalisation());
-        return fermeDTO;
-    }
+    FermeMapper INSTANCE = Mappers.getMapper(FermeMapper.class);
+
+     FermeDTO toDto(Ferme ferme);
+
+     Ferme toEntity(FermeDTO fermeDTO);
 }
