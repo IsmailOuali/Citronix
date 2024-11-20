@@ -23,18 +23,18 @@ public class ChampServiceImpl implements ChampService {
         Ferme ferme = fermeRepository.findById(fermeId)
                 .orElseThrow(() -> new CustomException("Ferme not found"));
 
-//        double totalSuperficieChamps = ferme.getChamps().stream()
-//                .mapToDouble(Champ::getSuperficie)
-//                .sum();
+        double totalSuperficieChamps = ferme.getChamps().stream()
+                .mapToDouble(Champ::getSuperficie)
+                .sum();
 
         if (champ.getSuperficie() > 1000) {
             throw new CustomException("La superficie d'un champ ne doit pas dépasser 1000.");
         }
 
-//        if (totalSuperficieChamps + champ.getSuperficie() > ferme.getSuperficie()) {
-//            throw new CustomException("La somme des superficies des champs dépasse la superficie de la ferme.");
-//        }
-//
+        if (totalSuperficieChamps + champ.getSuperficie() > ferme.getSuperficie()) {
+            throw new CustomException("La somme des superficies des champs dépasse la superficie de la ferme.");
+        }
+
 //        champ.setFerme(ferme);
         return champRepository.save(champ);
     }

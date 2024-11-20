@@ -4,8 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class FermeDTO {
+
+    @Getter
+    @Setter
+    private UUID id;
 
     @Getter
     @Setter
@@ -25,7 +30,8 @@ public class FermeDTO {
 
     public FermeDTO() {}
 
-    public FermeDTO(String nom, String localisation, double superficie, LocalDate dateCreation) {
+    public FermeDTO(UUID id,String nom, String localisation, double superficie, LocalDate dateCreation) {
+        this.id = id;
         this.nom = nom;
         this.localisation = localisation;
         this.superficie = superficie;
