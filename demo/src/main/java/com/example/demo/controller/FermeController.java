@@ -45,17 +45,24 @@ public class FermeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        existingFerme.setNom(fermeDTO.getNom());
-        existingFerme.setLocalisation(fermeDTO.getLocalisation());
-        existingFerme.setSuperficie(fermeDTO.getSuperficie());
-        existingFerme.setDateCreation(fermeDTO.getDateCreation());
+        if (fermeDTO.getNom() != null) {
+            existingFerme.setNom(fermeDTO.getNom());
+        }
+        if (fermeDTO.getLocalisation() != null) {
+            existingFerme.setLocalisation(fermeDTO.getLocalisation());
+        }
+        if (fermeDTO.getSuperficie() != 0) {
+            existingFerme.setSuperficie(fermeDTO.getSuperficie());
+        }
+        if (fermeDTO.getDateCreation() != null) {
+            existingFerme.setDateCreation(fermeDTO.getDateCreation());
+        }
 
         Ferme updatedFerme = fermeService.addFerme(existingFerme);
 
         FermeDTO updatedFermeDTO = FermeMapper.toDTO(updatedFerme);
         return new ResponseEntity<>(updatedFermeDTO, HttpStatus.OK);
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFerme(@PathVariable UUID id) {
         Ferme existingFerme = fermeService.getFermeById(id);
