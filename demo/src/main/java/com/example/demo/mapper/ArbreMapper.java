@@ -7,12 +7,16 @@ import com.example.demo.model.Ferme;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ArbreMapper {
 
     ArbreMapper INSTANCE = Mappers.getMapper(ArbreMapper.class);
 
     ArbreDTO toDto(Arbre arbre);
+    List<ArbreDTO> toDto(List<Arbre> arbres);
+;
 
     Arbre toEntity(ArbreDTO arbreDTO);
 }
