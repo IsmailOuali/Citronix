@@ -5,7 +5,7 @@ import com.example.demo.model.Champ;
 import com.example.demo.model.Ferme;
 import com.example.demo.repository.ChampRepository;
 import com.example.demo.repository.FermeRepository;
-import com.example.demo.service.champService;
+import com.example.demo.service.ChampService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class champServiceImpl implements champService {
+public class ChampServiceImpl implements ChampService {
 
     private final ChampRepository champRepository;
     private final FermeRepository fermeRepository;

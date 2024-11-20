@@ -5,7 +5,7 @@ import com.example.demo.model.Ferme;
 import java.util.List;
 import java.util.UUID;
 
-public interface fermeService {
+public interface FermeService {
     Ferme addFerme(Ferme ferme);
     Ferme updateFerme(Ferme ferme);
     void deleteFermeById(UUID ferme);

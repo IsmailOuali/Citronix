@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,10 +11,11 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Table(name = "ferme")
 public class Ferme {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String nom;
@@ -22,10 +25,6 @@ public class Ferme {
     private double superficie;
 
     private LocalDate dateCreation;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id") //
-    private User user;
 
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
     private List<Champ> champs;

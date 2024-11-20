@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.exception.CustomException;
 import com.example.demo.model.Ferme;
 import com.example.demo.repository.FermeRepository;
-import com.example.demo.service.fermeService;
+import com.example.demo.service.FermeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class fermeServiceImpl implements fermeService {
+public class FermeServiceImpl implements FermeService {
 
 
     @Autowired

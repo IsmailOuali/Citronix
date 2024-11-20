@@ -5,7 +5,7 @@ import com.example.demo.model.Champ;
 import java.util.List;
 import java.util.UUID;
 
-public interface champService{
+public interface ChampService {
     Champ addChamp(UUID fermeId, Champ champ);
     Champ updateChamp(Champ champ);
     void deleteChampById(UUID id);
