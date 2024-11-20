@@ -1,14 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Ferme;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface FermeService {
-    Ferme addFerme(Ferme ferme);
-    Ferme updateFerme(Ferme ferme);
+    FermeDTO addFerme(Ferme ferme);
+    FermeDTO updateFerme(Ferme ferme);
     void deleteFermeById(UUID ferme);
-    Ferme getFermeById(UUID id);
-    List<Ferme> getAllFermes();
+    FermeDTO getFermeById(UUID id);
+    List<FermeDTO> getAllFermes();
 }

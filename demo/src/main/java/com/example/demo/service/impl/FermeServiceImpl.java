@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.DTO.FermeDTO;
 import com.example.demo.exception.CustomException;
 import com.example.demo.model.Ferme;
 import com.example.demo.repository.FermeRepository;
@@ -9,39 +10,45 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class FermeServiceImpl implements FermeService {
-
 
     @Autowired
     private FermeRepository fermeRepository;
 
     @Override
-    public Ferme addFerme(Ferme ferme) {
-        return fermeRepository.save(ferme);
+    public FermeDTO addFerme(Ferme ferme) {
+        Ferme savedFerme = fermeRepository.save(ferme);
+        return mapToDTO(savedFerme);
     }
 
     @Override
-    public Ferme updateFerme(Ferme ferme) {
+    public FermeDTO updateFerme(Ferme ferme) {
         Ferme existingFerme = fermeRepository.findById(ferme.getId())
                 .orElseThrow(() -> new CustomException("Ferme not found with id: " + ferme.getId()));
         existingFerme.setNom(ferme.getNom());
         existingFerme.setLocalisation(ferme.getLocalisation());
         existingFerme.setSuperficie(ferme.getSuperficie());
         existingFerme.setDateCreation(ferme.getDateCreation());
-        return fermeRepository.save(existingFerme);
+        Ferme updatedFerme = fermeRepository.save(existingFerme);
+        return mapToDTO(updatedFerme);
     }
 
     @Override
-    public Ferme getFermeById(UUID id) {
-        return fermeRepository.findById(id)
+    public FermeDTO getFermeById(UUID id) {
+        Ferme ferme = fermeRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Ferme not found with id: " + id));
+        return mapToDTO(ferme);
     }
 
     @Override
-    public List<Ferme> getAllFermes() {
-        return fermeRepository.findAll();
+    public List<FermeDTO> getAllFermes() {
+        List<Ferme> fermes = fermeRepository.findAll();
+        return fermes.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -51,4 +58,14 @@ public class FermeServiceImpl implements FermeService {
         fermeRepository.delete(existingFerme);
     }
 
+    // Utility method to map Ferme to FermeDTO
+    private FermeDTO mapToDTO(Ferme ferme) {
+        FermeDTO fermeDTO = new FermeDTO();
+        fermeDTO.setId(ferme.getId());
+        fermeDTO.setNom(ferme.getNom());
+        fermeDTO.setLocalisation(ferme.getLocalisation());
+        fermeDTO.setSuperficie(ferme.getSuperficie());
+        fermeDTO.setDateCreation(ferme.getDateCreation());
+        return fermeDTO;
+    }
 }

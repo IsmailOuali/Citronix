@@ -1,13 +1,9 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.DTO.FermeDTO;
-import com.example.demo.mapper.FermeMapper;
 import com.example.demo.model.Ferme;
 import com.example.demo.service.FermeService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,71 +11,57 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/ferme")
+@RequestMapping("/api/fermes")
 public class FermeController {
 
     @Autowired
     private FermeService fermeService;
 
-    @Autowired
-    private FermeMapper fermeMapper;
-
-    @GetMapping
-    public List<Ferme> getAllFermes() {
-        return fermeService.getAllFermes();
-    }
-
+    // Add Ferme
     @PostMapping
-    public ResponseEntity<FermeDTO> createFerme(@RequestBody FermeDTO fermeDTO) {
-        Ferme ferme = fermeMapper.toEntity(fermeDTO); // Use instance method
+    public ResponseEntity<FermeDTO> addFerme(@RequestBody FermeDTO fermeDTO) {
+        Ferme ferme = new Ferme();
+        ferme.setNom(fermeDTO.getNom());
+        ferme.setLocalisation(fermeDTO.getLocalisation());
+        ferme.setSuperficie(fermeDTO.getSuperficie());
+        ferme.setDateCreation(fermeDTO.getDateCreation());
 
-        Ferme savedFerme = fermeService.addFerme(ferme);
-
-        FermeDTO savedFermeDTO = fermeMapper.toDto(savedFerme); // Use instance method
-
-        return new ResponseEntity<>(savedFermeDTO, HttpStatus.CREATED);
+        FermeDTO createdFerme = fermeService.addFerme(ferme);
+        return ResponseEntity.status(201).body(createdFerme);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<FermeDTO> updateFerme(@PathVariable UUID id, @RequestBody FermeDTO fermeDTO) {
-        Ferme existingFerme = fermeService.getFermeById(id);
+    // Update Ferme
+    @PutMapping
+    public ResponseEntity<FermeDTO> updateFerme(@RequestBody FermeDTO fermeDTO) {
+        Ferme ferme = new Ferme();
+        ferme.setId(fermeDTO.getId());
+        ferme.setNom(fermeDTO.getNom());
+        ferme.setLocalisation(fermeDTO.getLocalisation());
+        ferme.setSuperficie(fermeDTO.getSuperficie());
+        ferme.setDateCreation(fermeDTO.getDateCreation());
 
-        if (existingFerme == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        if (fermeDTO.getNom() != null) {
-            existingFerme.setNom(fermeDTO.getNom());
-        }
-        if (fermeDTO.getLocalisation() != null) {
-            existingFerme.setLocalisation(fermeDTO.getLocalisation());
-        }
-        if (fermeDTO.getSuperficie() != 0) {
-            existingFerme.setSuperficie(fermeDTO.getSuperficie());
-        }
-        if (fermeDTO.getDateCreation() != null) {
-            existingFerme.setDateCreation(fermeDTO.getDateCreation());
-        }
-
-        Ferme updatedFerme = fermeService.addFerme(existingFerme);
-
-        FermeDTO updatedFermeDTO = fermeMapper.toDto(updatedFerme); // Use instance method
-        return new ResponseEntity<>(updatedFermeDTO, HttpStatus.OK);
+        FermeDTO updatedFerme = fermeService.updateFerme(ferme);
+        return ResponseEntity.ok(updatedFerme);
     }
 
+    // Get a Ferme by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<FermeDTO> getFermeById(@PathVariable UUID id) {
+        FermeDTO fermeDTO = fermeService.getFermeById(id);
+        return ResponseEntity.ok(fermeDTO);
+    }
+
+    // Get all Fermes
+    @GetMapping
+    public ResponseEntity<List<FermeDTO>> getAllFermes() {
+        List<FermeDTO> fermeDTOs = fermeService.getAllFermes();
+        return ResponseEntity.ok(fermeDTOs);
+    }
+
+    // Delete Ferme by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFerme(@PathVariable UUID id) {
-        Ferme existingFerme = fermeService.getFermeById(id);
-
-        if (existingFerme == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         fermeService.deleteFermeById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
-
-
-
-
