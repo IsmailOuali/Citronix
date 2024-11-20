@@ -21,9 +21,9 @@ public class Vente {
 
     private double revenu;
 
-//    @ManyToOne
-//    @JoinColumn(name = "recolte_id")
-//    private Recolte recolte;
+    @ManyToOne
+    @JoinColumn(name = "recolte_id")
+    private Recolte recolte;
 
     private String client;
 }

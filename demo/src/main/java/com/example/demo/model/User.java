@@ -21,7 +21,7 @@ public class User {
 
     private String password;
 
-//    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
-//    private List<Ferme> fermes;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Ferme> fermes;
 
 }

@@ -13,11 +13,11 @@ public class DetailRecolte {
 
     private double quantiteRecoltee;
 
-//    @ManyToOne
-//    @JoinColumn(name = "arbre_id")
-//    private Arbre arbre;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "recolte_id")
-//    private Recolte recolte;
+    @ManyToOne
+    @JoinColumn(name = "arbre_id")
+    private Arbre arbre;
+
+    @ManyToOne
+    @JoinColumn(name = "recolte_id")
+    private Recolte recolte;
 }

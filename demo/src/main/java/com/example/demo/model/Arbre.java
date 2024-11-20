@@ -18,8 +18,8 @@ public class Arbre {
 
     private int age;
 
-//    @ManyToOne
-//    @JoinColumn(name = "champ_id")
-//    private Champ champ;
+    @ManyToOne
+    @JoinColumn(name = "champ_id")
+    private Champ champ;
 }
 

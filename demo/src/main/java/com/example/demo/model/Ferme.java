@@ -23,6 +23,10 @@ public class Ferme {
 
     private LocalDate dateCreation;
 
-//    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
-//    private List<Champ> champs;
+    @ManyToOne
+    @JoinColumn(name = "user_id") //
+    private User user;
+
+    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
+    private List<Champ> champs;
 }
