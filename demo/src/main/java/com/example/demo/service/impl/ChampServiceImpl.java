@@ -58,7 +58,12 @@ public class ChampServiceImpl  implements ChampService {
         Champ existingChamp = champRepository.findById(champDTO.getId())
                 .orElseThrow(() -> new CustomException("Champ not found with id: " + champDTO.getId()));
 
+        if (champDTO.getSuperficie() > 1000){
+            throw new CustomException("La superficie d'un champ ne doit pas dépasser 1000.");
+
+        }
         existingChamp.setSuperficie(champDTO.getSuperficie());
+
         Champ updatedChamp = champRepository.save(existingChamp);
 
         return champMapper.toDto(updatedChamp);

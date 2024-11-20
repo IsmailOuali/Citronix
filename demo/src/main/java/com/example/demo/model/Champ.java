@@ -20,6 +20,6 @@ public class Champ {
     @JoinColumn(name = "ferme_id")
     private Ferme ferme;
 
-    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "champ", cascade = CascadeType.PERSIST)
     private List<Arbre> arbres;
 }
