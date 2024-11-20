@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 import com.example.demo.DTO.ChampDTO;
 import com.example.demo.service.ChampService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +45,7 @@ public class ChampController {
     }
 
     // Get all Champs
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ChampDTO>> getAllChamps() {
         List<ChampDTO> champDTOs = champService.getAllChamps();
         return ResponseEntity.ok(champDTOs);
