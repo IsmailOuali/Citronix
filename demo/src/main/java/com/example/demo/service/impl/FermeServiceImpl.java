@@ -1,13 +1,17 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.DTO.Ferme.FermeCreateDTO;
+import com.example.demo.DTO.Ferme.FermeResponseDTO;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.exception.CustomException;
+import com.example.demo.mapper.FermeMapper;
 import com.example.demo.model.Ferme;
 import com.example.demo.repository.FermeRepository;
 import com.example.demo.service.FermeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,10 +22,16 @@ public class FermeServiceImpl implements FermeService {
     @Autowired
     private FermeRepository fermeRepository;
 
+    @Autowired
+    private FermeMapper fermeMapper;
+
     @Override
-    public FermeDTO addFerme(Ferme ferme) {
-        Ferme savedFerme = fermeRepository.save(ferme);
-        return mapToDTO(savedFerme);
+    public FermeResponseDTO addFerme(FermeCreateDTO fermeCreateDTO) {
+        Ferme ferme = fermeMapper.createDTOtoFerme(fermeCreateDTO);
+        System.out.println(ferme);
+        ferme.setDateCreation(LocalDate.now());
+        fermeRepository.save(ferme);
+        return fermeMapper.fermeToResponseDTO(ferme);
     }
 
     @Override

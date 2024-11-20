@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.DTO.Ferme.FermeCreateDTO;
+import com.example.demo.DTO.Ferme.FermeResponseDTO;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Ferme;
 import com.example.demo.service.FermeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,20 +22,13 @@ public class FermeController {
 
     // Add Ferme
     @PostMapping
-    public ResponseEntity<FermeDTO> addFerme(@RequestBody FermeDTO fermeDTO) {
-        Ferme ferme = new Ferme();
-        ferme.setNom(fermeDTO.getNom());
-        ferme.setLocalisation(fermeDTO.getLocalisation());
-        ferme.setSuperficie(fermeDTO.getSuperficie());
-        ferme.setDateCreation(fermeDTO.getDateCreation());
-
-        FermeDTO createdFerme = fermeService.addFerme(ferme);
-        return ResponseEntity.status(201).body(createdFerme);
+public ResponseEntity<FermeResponseDTO> addFerme(@Valid @RequestBody FermeCreateDTO fermeCreateDTO) {
+        return  ResponseEntity.ok(fermeService.addFerme(fermeCreateDTO));
     }
 
     // Update Ferme
     @PutMapping
-    public ResponseEntity<FermeDTO> updateFerme(@RequestBody FermeDTO fermeDTO) {
+    public ResponseEntity<FermeDTO> updateFerme(@Valid @RequestBody FermeDTO fermeDTO) {
         Ferme ferme = new Ferme();
         ferme.setId(fermeDTO.getId());
         ferme.setNom(fermeDTO.getNom());

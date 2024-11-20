@@ -9,17 +9,18 @@ import java.util.UUID;
 @Entity
 public class DetailRecolte {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @EmbeddedId
+    private DetailRecolteId id;
 
     private double quantiteRecoltee;
 
     @ManyToOne
+    @MapsId("arbreId")
     @JoinColumn(name = "arbre_id")
     private Arbre arbre;
 
     @ManyToOne
+    @MapsId("recolteId")
     @JoinColumn(name = "recolte_id")
     private Recolte recolte;
 }
