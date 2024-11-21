@@ -37,13 +37,12 @@ public class ArbreServiceImpl implements ArbreService {
         Arbre existingArbre = arbreRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Arbre not found with id: " + id));
 
-        // Update properties from DTO to entity
         existingArbre.setAge(arbreDTO.getAge());
         existingArbre.setDatePlantation(arbreDTO.getDatePlantation());
         existingArbre.setChamp(champMapper.toEntity(arbreDTO.getChamp())); // Mapping Champ
 
         Arbre updatedArbre = arbreRepository.save(existingArbre);
-        return arbreMapper.toDto(updatedArbre); // Return updated DTO
+        return arbreMapper.toDto(updatedArbre);
     }
 
     @Override

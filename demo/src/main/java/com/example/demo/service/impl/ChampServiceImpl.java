@@ -68,7 +68,7 @@ public class ChampServiceImpl  implements ChampService {
 
         Champ updatedChamp = champRepository.save(existingChamp);
 
-        return champMapper.toDto(updatedChamp);
+        return mapToDto(updatedChamp);
     }
 
     @Override
@@ -82,13 +82,23 @@ public class ChampServiceImpl  implements ChampService {
     public ChampDTO getChampById(UUID id) {
         Champ champ = champRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Champ not found with id: " + id));
-        return champMapper.toDto(champ);
+        return mapToDto(champ);
     }
 
     @Override
     public List<ChampDTO> getAllChamps() {
         return champRepository.findAll().stream()
-                .map(champMapper::toDto)
+                .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ChampDTO mapToDto(Champ champ) {
+        ChampDTO champDTO = new ChampDTO();
+        champDTO.setId(champ.getId());
+        champDTO.setSuperficie(champ.getSuperficie());
+        return champDTO;
+
+    }
+
 }

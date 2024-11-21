@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.DTO.Champ.ChampCreateDTO;
+import com.example.demo.DTO.Champ.ChampResponseDTO;
 import com.example.demo.DTO.ChampDTO;
 import com.example.demo.service.ChampService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,9 @@ public class ChampController {
     private ChampService champService;  // Injecting ChampService
 
     @PostMapping("/{fermeId}")
-    public ResponseEntity<ChampDTO> addChamp(@PathVariable UUID fermeId, @RequestBody ChampDTO champDTO) {
-        ChampDTO createdChamp = champService.addChamp(fermeId, champDTO);
-        return ResponseEntity.status(201).body(createdChamp);
+    public ResponseEntity<ChampResponseDTO> addChamp(@PathVariable UUID fermeId, @RequestBody ChampCreateDTO champCreateDTO) {
+        ChampResponseDTO champResponseDTO = champService.addChamp(fermeId, champCreateDTO);
+        return ResponseEntity.status(201).body(champResponseDTO);
     }
 
     // Update an existing Champ

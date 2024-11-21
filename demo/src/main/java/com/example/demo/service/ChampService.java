@@ -15,4 +15,5 @@ public interface ChampService{
     void deleteChampById(UUID id);
     ChampDTO getChampById(UUID id);
     List<ChampDTO> getAllChamps();
+    ChampDTO mapToDto(Champ champ);
 }
