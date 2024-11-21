@@ -14,8 +14,10 @@ public class Arbre {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private LocalDate datePlantation;
 
+    @Column(nullable = false)
     private int age;
 
     @ManyToOne

@@ -1,17 +1,22 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.DTO.Arbre.ArbreCreateDTO;
+import com.example.demo.DTO.Arbre.ArbreResponseDTO;
 import com.example.demo.DTO.ArbreDTO;
 import com.example.demo.exception.CustomException;
 import com.example.demo.mapper.ArbreMapper;
 import com.example.demo.mapper.ChampMapper;
 import com.example.demo.model.Arbre;
+import com.example.demo.model.Champ;
 import com.example.demo.repository.ArbreRepository;
+import com.example.demo.repository.ChampRepository;
 import com.example.demo.service.ArbreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ArbreServiceImpl implements ArbreService {
@@ -20,16 +25,34 @@ public class ArbreServiceImpl implements ArbreService {
     private ArbreRepository arbreRepository;
 
     @Autowired
+    private ChampRepository champRepository;
+
+    @Autowired
     private ArbreMapper arbreMapper;
 
     @Autowired
     private ChampMapper champMapper;
 
     @Override
-    public ArbreDTO addArbre(ArbreDTO arbreDTO) {
-        Arbre arbre = arbreMapper.toEntity(arbreDTO); // Convert DTO to entity
+    public ArbreResponseDTO addArbre(ArbreCreateDTO arbreCreateDTO) {
+        Arbre arbre = arbreMapper.createDtotoEntity(arbreCreateDTO);
+
+        Champ champ = champRepository.findById(arbreCreateDTO.getChamp().getId())
+                .orElseThrow(() -> new CustomException("Champ not found with id: " + arbreCreateDTO.getChamp().getId()));
+
+        double maxAllowedTrees = champ.getSuperficie() / 10;
+
+        long currentTreeCount = arbreRepository.countByChampId(champ.getId());
+
+        if (currentTreeCount >= maxAllowedTrees) {
+            throw new CustomException("The maximum number of trees for this champ has been reached.");
+        }
+
+        arbre.setChamp(champ);
+
         Arbre savedArbre = arbreRepository.save(arbre);
-        return arbreMapper.toDto(savedArbre); // Convert back to DTO after saving
+
+        return arbreMapper.arbreToResponseDTO(savedArbre);
     }
 
     @Override
@@ -53,9 +76,9 @@ public class ArbreServiceImpl implements ArbreService {
     }
 
     @Override
-    public List<ArbreDTO> getAllArbres() {
+    public List<Arbre> getAllArbres() {
         List<Arbre> arbres = arbreRepository.findAll();
-        return arbreMapper.toDto(arbres);
+        return arbres;
     }
 
     @Override

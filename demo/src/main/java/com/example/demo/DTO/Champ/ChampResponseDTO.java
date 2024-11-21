@@ -23,7 +23,7 @@ public class ChampResponseDTO {
 
     private double superficie;
 
-    @ManyToOne
+
 
     private FermeDTO ferme;
 

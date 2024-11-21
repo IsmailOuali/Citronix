@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface ArbreRepository extends JpaRepository<Arbre, UUID> {
+    long countByChampId(UUID champId);
+
 }
