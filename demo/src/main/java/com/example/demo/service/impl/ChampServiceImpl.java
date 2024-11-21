@@ -97,7 +97,9 @@ public class ChampServiceImpl  implements ChampService {
         ChampDTO champDTO = new ChampDTO();
         champDTO.setId(champ.getId());
         champDTO.setSuperficie(champ.getSuperficie());
-        return champDTO;
+        if (champ.getFerme() != null) {
+            champDTO.setFerme(fermeMapper.fermeToDTO(champ.getFerme()));
+        }        return champDTO;
 
     }
 

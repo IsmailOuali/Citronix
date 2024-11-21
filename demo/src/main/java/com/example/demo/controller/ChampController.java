@@ -29,7 +29,7 @@ public class ChampController {
     @PutMapping()
     public ResponseEntity<ChampDTO> updateChamp(@RequestBody ChampDTO champDTO) {
         ChampDTO updatedChamp = champService.updateChamp(champDTO);
-        return ResponseEntity.ok(updatedChamp);  // Returning updated ChampDTO with HTTP 200
+        return ResponseEntity.ok(updatedChamp);
     }
 
     // Delete a Champ by ID

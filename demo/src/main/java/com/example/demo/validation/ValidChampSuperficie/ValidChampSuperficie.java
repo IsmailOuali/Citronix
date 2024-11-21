@@ -1,4 +1,4 @@
-package com.example.demo.validation;
+package com.example.demo.validation.ValidChampSuperficie;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

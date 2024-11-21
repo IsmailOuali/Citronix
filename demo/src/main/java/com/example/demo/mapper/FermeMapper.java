@@ -14,4 +14,6 @@ public interface FermeMapper {
      Ferme createDTOtoFerme(FermeCreateDTO fermeCreateDTO);
 
      FermeResponseDTO fermeToResponseDTO(Ferme ferme);
+     FermeDTO fermeToDTO(Ferme ferme);
+
 }

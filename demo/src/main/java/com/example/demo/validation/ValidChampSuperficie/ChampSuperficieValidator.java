@@ -1,4 +1,4 @@
-package com.example.demo.validation;
+package com.example.demo.validation.ValidChampSuperficie;
 
 import com.example.demo.DTO.Champ.ChampCreateDTO;
 

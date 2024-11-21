@@ -2,7 +2,7 @@ package com.example.demo.DTO.Champ;
 
 import com.example.demo.model.Ferme;
 
-import com.example.demo.validation.ValidChampSuperficie;
+import com.example.demo.validation.ValidChampSuperficie.ValidChampSuperficie;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,6 @@ public class ChampCreateDTO {
 
     @Min(1000)
     private double superficie;
-
 
     private Ferme ferme;
 }
