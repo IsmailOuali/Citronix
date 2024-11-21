@@ -19,6 +19,7 @@ public interface ChampMapper {
 
    Champ createDTOtoChamp(ChampCreateDTO champCreateDTO);
    ChampResponseDTO champToResponseDTO(Champ champ);
+   
    ChampDTO toDto(Champ champ);
    Champ toEntity(ChampDTO champDTO);
 

@@ -4,7 +4,9 @@ import com.example.demo.DTO.ArbreDTO;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Arbre;
 import com.example.demo.model.Ferme;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public interface ArbreMapper {
     ArbreMapper INSTANCE = Mappers.getMapper(ArbreMapper.class);
 
     ArbreDTO toDto(Arbre arbre);
+
+    @IterableMapping(elementTargetType = ArbreDTO.class)
     List<ArbreDTO> toDto(List<Arbre> arbres);
 ;
 
