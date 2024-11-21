@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.DTO.Champ.ChampCreateDTO;
+import com.example.demo.DTO.Champ.ChampResponseDTO;
 import com.example.demo.DTO.ChampDTO;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.exception.CustomException;
@@ -30,7 +32,7 @@ public class ChampServiceImpl  implements ChampService {
 
 
     @Override
-    public ChampDTO addChamp(UUID fermeId, ChampDTO champDTO) {
+    public ChampResponseDTO addChamp(UUID fermeId, ChampCreateDTO champCreateDTO) {
         Ferme ferme = fermeRepository.findById(fermeId)
                 .orElseThrow(() -> new CustomException("Ferme not found"));
 
@@ -38,19 +40,19 @@ public class ChampServiceImpl  implements ChampService {
                 .mapToDouble(Champ::getSuperficie)
                 .sum();
 
-        if (champDTO.getSuperficie() > 1000) {
+        if (champCreateDTO.getSuperficie() > 1000) {
             throw new CustomException("La superficie d'un champ ne doit pas dépasser 1000.");
         }
 
-        if (totalSuperficieChamps + champDTO.getSuperficie() > ferme.getSuperficie()) {
+        if (totalSuperficieChamps + champCreateDTO.getSuperficie() > ferme.getSuperficie()) {
             throw new CustomException("La somme des superficies des champs dépasse la superficie de la ferme.");
         }
 
-        Champ champ = champMapper.toEntity(champDTO);
+        Champ champ = champMapper.createDTOtoChamp(champCreateDTO);
         champ.setFerme(ferme);
         Champ savedChamp = champRepository.save(champ);
 
-        return champMapper.toDto(savedChamp);
+        return champMapper.champToResponseDTO(savedChamp);
     }
 
     @Override

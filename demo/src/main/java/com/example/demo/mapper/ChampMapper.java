@@ -1,5 +1,7 @@
 package com.example.demo.mapper;
 
+import com.example.demo.DTO.Champ.ChampCreateDTO;
+import com.example.demo.DTO.Champ.ChampResponseDTO;
 import com.example.demo.DTO.ChampDTO;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Champ;
@@ -10,9 +12,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", uses = {ArbreMapper.class, FermeMapper.class})
 public interface ChampMapper {
 
-    ChampMapper INSTANCE = Mappers.getMapper(ChampMapper.class);
-
-    ChampDTO toDto(Champ champ);
-
-    Champ toEntity(ChampDTO champDTO);
+   Champ createDTOtoChamp(ChampCreateDTO champCreateDTO);
+   ChampResponseDTO champToResponseDTO(Champ champ);
 }
