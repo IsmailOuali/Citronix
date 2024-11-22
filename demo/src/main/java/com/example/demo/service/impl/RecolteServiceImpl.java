@@ -34,7 +34,7 @@ public class RecolteServiceImpl implements RecolteService {
     }
 
     @Override
-    public RecolteDTO updateRecolte(RecolteDTO recolteDTO) {
+    public RecolteDTO updateRecolte(Recolte recolte) {
         return null;
     }
 
