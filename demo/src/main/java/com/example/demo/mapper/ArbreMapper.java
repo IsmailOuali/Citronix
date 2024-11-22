@@ -1,5 +1,7 @@
 package com.example.demo.mapper;
 
+import com.example.demo.DTO.Arbre.ArbreCreateDTO;
+import com.example.demo.DTO.Arbre.ArbreResponseDTO;
 import com.example.demo.DTO.ArbreDTO;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Arbre;
@@ -23,4 +25,7 @@ public interface ArbreMapper {
 ;
 
     Arbre toEntity(ArbreDTO arbreDTO);
+
+    Arbre createDTOToArbre(ArbreCreateDTO arbreCreateDTO);
+    ArbreResponseDTO arbreToResponseDTO(Arbre arbre);
 }

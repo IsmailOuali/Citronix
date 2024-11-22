@@ -1,11 +1,16 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.DTO.Arbre.ArbreCreateDTO;
+import com.example.demo.DTO.Arbre.ArbreResponseDTO;
 import com.example.demo.DTO.ArbreDTO;
 import com.example.demo.exception.CustomException;
 import com.example.demo.mapper.ArbreMapper;
 import com.example.demo.mapper.ChampMapper;
 import com.example.demo.model.Arbre;
+import com.example.demo.model.Champ;
+import com.example.demo.model.Ferme;
 import com.example.demo.repository.ArbreRepository;
+import com.example.demo.repository.ChampRepository;
 import com.example.demo.service.ArbreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +28,21 @@ public class ArbreServiceImpl implements ArbreService {
     private ArbreMapper arbreMapper;
 
     @Autowired
+    private ChampRepository champRepository;
+
+    @Autowired
     private ChampMapper champMapper;
 
     @Override
-    public ArbreDTO addArbre(ArbreDTO arbreDTO) {
-        Arbre arbre = arbreMapper.toEntity(arbreDTO); // Convert DTO to entity
+    public ArbreResponseDTO addArbre(UUID champId, ArbreCreateDTO arbreCreateDTO) {
+
+        Champ champ = champRepository.findById(champId)
+                .orElseThrow(() -> new CustomException("Champ not found"));
+
+        Arbre arbre = arbreMapper.createDTOToArbre(arbreCreateDTO);
+        arbre.setChamp(champ);
         Arbre savedArbre = arbreRepository.save(arbre);
-        return arbreMapper.toDto(savedArbre); // Convert back to DTO after saving
+        return arbreMapper.arbreToResponseDTO(savedArbre);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.DTO.Arbre.ArbreCreateDTO;
+import com.example.demo.DTO.Arbre.ArbreResponseDTO;
 import com.example.demo.DTO.ArbreDTO;
 import com.example.demo.service.ArbreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,10 @@ public class ArbreController {
     @Autowired
     private ArbreService arbreService;
 
-    // Create a new Arbre
-    @PostMapping
-    public ResponseEntity<ArbreDTO> addArbre(@RequestBody ArbreDTO arbreDTO) {
-        ArbreDTO createdArbre = arbreService.addArbre(arbreDTO);
-        return ResponseEntity.ok(createdArbre);  // Responds with the created ArbreDTO
+    @PostMapping("/{champId}")
+    public ResponseEntity<ArbreResponseDTO> addArbre(@PathVariable UUID champId, @RequestBody ArbreCreateDTO arbreCreateDTO) {
+        ArbreResponseDTO createdArbre = arbreService.addArbre(champId, arbreCreateDTO);
+        return ResponseEntity.ok(createdArbre);
     }
 
     // Update an existing Arbre by ID
