@@ -40,8 +40,8 @@ public class ChampServiceImpl  implements ChampService {
                 .mapToDouble(Champ::getSuperficie)
                 .sum();
 
-        if (champCreateDTO.getSuperficie() > 1000) {
-            throw new CustomException("La superficie d'un champ ne doit pas dépasser 1000.");
+        if (champCreateDTO.getSuperficie() < 1000) {
+            throw new CustomException("La superficie d'un champ  doit pas dépasser 1000.");
         }
 
         if (totalSuperficieChamps + champCreateDTO.getSuperficie() > ferme.getSuperficie()) {

@@ -39,6 +39,13 @@ public class ArbreServiceImpl implements ArbreService {
         Champ champ = champRepository.findById(champId)
                 .orElseThrow(() -> new CustomException("Champ not found"));
 
+        double maxAllowedTrees = Math.floor(champ.getSuperficie() / 100);
+        long currentTreeCount = arbreRepository.countByChampId(champId);
+
+        if (currentTreeCount >= maxAllowedTrees) {
+            throw new CustomException("The maximum number of trees for this champ has been reached.");
+        }
+
         Arbre arbre = arbreMapper.createDTOToArbre(arbreCreateDTO);
         arbre.setChamp(champ);
         Arbre savedArbre = arbreRepository.save(arbre);
