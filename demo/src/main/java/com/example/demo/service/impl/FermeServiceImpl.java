@@ -28,7 +28,6 @@ public class FermeServiceImpl implements FermeService {
     @Override
     public FermeResponseDTO addFerme(FermeCreateDTO fermeCreateDTO) {
         Ferme ferme = fermeMapper.createDTOtoFerme(fermeCreateDTO);
-        System.out.println(ferme);
         ferme.setDateCreation(LocalDate.now());
         fermeRepository.save(ferme);
         return fermeMapper.fermeToResponseDTO(ferme);
