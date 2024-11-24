@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.DTO.FermeDTO;
 import com.example.demo.DTO.Recolte.RecolteCreateDTO;
 import com.example.demo.DTO.Recolte.RecolteResponseDTO;
 import com.example.demo.DTO.RecolteDTO;
@@ -26,9 +27,9 @@ public class RecolteController {
     private RecolteMapper recolteMapper;
 
 
-    @PostMapping
-    public ResponseEntity<RecolteResponseDTO> addRecolte(@Valid @RequestBody RecolteCreateDTO recolteCreateDTO) {
-        RecolteResponseDTO recolteResponseDTO = recolteService.addRecolte(recolteCreateDTO);
+    @PostMapping("/{champId}")
+    public ResponseEntity<RecolteResponseDTO> addRecolte(@Valid @PathVariable UUID champId,@RequestBody RecolteCreateDTO recolteCreateDTO) {
+        RecolteResponseDTO recolteResponseDTO = recolteService.addRecolte(champId, recolteCreateDTO);
         return ResponseEntity.status(201).body(recolteResponseDTO);
     }
 
@@ -54,6 +55,12 @@ public class RecolteController {
     public ResponseEntity<List<RecolteResponseDTO>> getAllRecoltes() {
        List<RecolteResponseDTO> recolteResponseDTOSDTOS = recolteService.getAllRecolte();
        return ResponseEntity.ok(recolteResponseDTOSDTOS);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RecolteDTO> getRecolteById(@PathVariable UUID id) {
+        RecolteDTO recolteDTO = recolteService.getRecolteById(id);
+        return ResponseEntity.ok(recolteDTO);
     }
 
 
