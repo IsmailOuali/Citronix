@@ -5,8 +5,11 @@ import com.example.demo.DTO.Recolte.RecolteResponseDTO;
 import com.example.demo.DTO.RecolteDTO;
 import com.example.demo.exception.CustomException;
 import com.example.demo.mapper.RecolteMapper;
-import com.example.demo.model.Ferme;
+import com.example.demo.model.Arbre;
+import com.example.demo.model.DetailRecolte;
 import com.example.demo.model.Recolte;
+import com.example.demo.repository.ArbreRepository;
+import com.example.demo.repository.DetailRecolteRepository;
 import com.example.demo.repository.RecolteRepository;
 import com.example.demo.service.RecolteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +26,33 @@ public class RecolteServiceImpl implements RecolteService {
     private RecolteRepository recolteRepository;
 
     @Autowired
+    private ArbreRepository arbreRepository;
+
+    @Autowired
+    private DetailRecolteRepository detailRecolteRepository;
+
+    @Autowired
     private RecolteMapper recolteMapper;
 
 
     @Override
-    public RecolteResponseDTO addRecolte(RecolteCreateDTO recolteCreateDTO) {
+    public RecolteResponseDTO addRecolte(UUID champId, RecolteCreateDTO recolteCreateDTO) {
+        List<Arbre> arbresInChamp = arbreRepository.findByChampId(champId);
+
+        if (arbresInChamp.isEmpty()) {
+            throw new IllegalArgumentException("Champ has no Arbres for the Recolte.");
+        }
+
+        List<DetailRecolte> allDetailRecoltes = detailRecolteRepository.findByArbreId(champId);
+
+        double totalQuantiteRecoltee = allDetailRecoltes.stream()
+                .mapToDouble(DetailRecolte::getQuantiteRecoltee)
+                .sum();
+
         Recolte recolte = recolteMapper.createDT0toRecolte(recolteCreateDTO);
+        recolte.setQuantiteTotale(totalQuantiteRecoltee);
         recolteRepository.save(recolte);
+
         return recolteMapper.recolteToDTO(recolte);
     }
 

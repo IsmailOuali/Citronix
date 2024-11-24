@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface RecolteService {
 
-    RecolteResponseDTO addRecolte (RecolteCreateDTO recolteCreateDTO);
+    RecolteResponseDTO addRecolte (UUID champ, RecolteCreateDTO recolteCreateDTO);
     RecolteDTO updateRecolte (Recolte recolte);
     void deleteRecolte (UUID recolteId);
     RecolteDTO getRecolteById(UUID id);
