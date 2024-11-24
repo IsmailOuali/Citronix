@@ -1,18 +1,18 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.DTO.Champ.ChampCreateDTO;
-import com.example.demo.DTO.Champ.ChampResponseDTO;
 import com.example.demo.DTO.Recolte.RecolteCreateDTO;
 import com.example.demo.DTO.Recolte.RecolteResponseDTO;
 import com.example.demo.DTO.RecolteDTO;
 import com.example.demo.mapper.RecolteMapper;
 import com.example.demo.model.Recolte;
 import com.example.demo.service.RecolteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,13 +27,13 @@ public class RecolteController {
 
 
     @PostMapping
-    public ResponseEntity<RecolteResponseDTO> addChamp(@RequestBody RecolteCreateDTO recolteCreateDTO) {
+    public ResponseEntity<RecolteResponseDTO> addRecolte(@Valid @RequestBody RecolteCreateDTO recolteCreateDTO) {
         RecolteResponseDTO recolteResponseDTO = recolteService.addRecolte(recolteCreateDTO);
         return ResponseEntity.status(201).body(recolteResponseDTO);
     }
 
     @PutMapping
-    public ResponseEntity<RecolteDTO> updateChamp(@RequestBody RecolteDTO recolteDTO) {
+    public ResponseEntity<RecolteDTO> updateRecolte(@RequestBody RecolteDTO recolteDTO) {
         Recolte recolte = new Recolte();
         recolte.setId(recolteDTO.getId());
         recolte.setSaison(recolteDTO.getSaison());
@@ -42,6 +42,18 @@ public class RecolteController {
 
         RecolteDTO recolteupdate = recolteService.updateRecolte(recolte);
         return ResponseEntity.status(201).body(recolteupdate);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<RecolteResponseDTO> deleteRecolte(@PathVariable UUID id) {
+        recolteService.deleteRecolte(id);
+        return ResponseEntity.status(204).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RecolteResponseDTO>> getAllRecoltes() {
+       List<RecolteResponseDTO> recolteResponseDTOSDTOS = recolteService.getAllRecolte();
+       return ResponseEntity.ok(recolteResponseDTOSDTOS);
     }
 
 

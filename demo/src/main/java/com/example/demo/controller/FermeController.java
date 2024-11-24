@@ -40,7 +40,6 @@ public ResponseEntity<FermeResponseDTO> addFerme(@Valid @RequestBody FermeCreate
         return ResponseEntity.ok(updatedFerme);
     }
 
-    // Get a Ferme by ID
     @GetMapping("/{id}")
     public ResponseEntity<FermeDTO> getFermeById(@PathVariable UUID id) {
         FermeDTO fermeDTO = fermeService.getFermeById(id);
