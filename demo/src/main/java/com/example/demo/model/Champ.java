@@ -16,7 +16,7 @@ public class Champ {
 
     private double superficie;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ferme_id")
     private Ferme ferme;
 

@@ -41,8 +41,8 @@ public class ChampController {
 
     // Get a Champ by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ChampDTO> getChampById(@PathVariable UUID id) {
-        ChampDTO champDTO = champService.getChampById(id);
+    public ResponseEntity<ChampResponseDTO> getChampById(@PathVariable UUID id) {
+        ChampResponseDTO champDTO = champService.getChampById(id);
         return ResponseEntity.ok(champDTO);
     }
 

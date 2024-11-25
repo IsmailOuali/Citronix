@@ -79,10 +79,9 @@ public class ChampServiceImpl  implements ChampService {
     }
 
     @Override
-    public ChampDTO getChampById(UUID id) {
-        Champ champ = champRepository.findById(id)
-                .orElseThrow(() -> new CustomException("Champ not found with id: " + id));
-        return mapToDto(champ);
+    public ChampResponseDTO getChampById(UUID champId) {
+        Champ champ = champRepository.findById(champId).orElseThrow(() -> new RuntimeException("Champ not found"));
+        return champMapper.champToResponseDTO(champ);
     }
 
     @Override

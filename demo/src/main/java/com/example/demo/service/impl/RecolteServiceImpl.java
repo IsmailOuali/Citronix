@@ -44,17 +44,22 @@ public class RecolteServiceImpl implements RecolteService {
         }
 
         List<DetailRecolte> allDetailRecoltes = detailRecolteRepository.findByArbreId(champId);
-
         double totalQuantiteRecoltee = allDetailRecoltes.stream()
                 .mapToDouble(DetailRecolte::getQuantiteRecoltee)
                 .sum();
 
         Recolte recolte = recolteMapper.createDT0toRecolte(recolteCreateDTO);
         recolte.setQuantiteTotale(totalQuantiteRecoltee);
+
         recolteRepository.save(recolte);
+
+        double updatedQuantiteTotale = detailRecolteRepository.sumQuantiteByRecolteId(recolte.getId());
+        recolte.setQuantiteTotale(updatedQuantiteTotale);  // Update with the latest sum
+        recolteRepository.save(recolte);  // Save the updated Recolte with the correct total quantity
 
         return recolteMapper.recolteToDTO(recolte);
     }
+
 
     @Override
     public RecolteDTO updateRecolte(Recolte recolte) {

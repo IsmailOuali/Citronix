@@ -13,7 +13,7 @@ public interface ChampService{
     ChampResponseDTO addChamp(UUID fermeId, ChampCreateDTO champCreateDTO);
     ChampDTO updateChamp(ChampDTO champDTO);
     void deleteChampById(UUID id);
-    ChampDTO getChampById(UUID id);
+    ChampResponseDTO getChampById(UUID id);
     List<ChampDTO> getAllChamps();
     ChampDTO mapToDto(Champ champ);
 }

@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import com.example.demo.DTO.Ferme.FermeResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +27,7 @@ public class ChampDTO {
 
     public ChampDTO() {}
 
-    public ChampDTO(UUID id,double superficie, FermeDTO ferme , List<ArbreDTO> arbre) {
+    public ChampDTO(UUID id, double superficie, FermeDTO ferme , List<ArbreDTO> arbre) {
         this.id = id;
         this.superficie = superficie;
         this.ferme = ferme;

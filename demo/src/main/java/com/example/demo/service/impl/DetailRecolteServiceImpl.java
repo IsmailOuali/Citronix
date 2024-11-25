@@ -49,7 +49,6 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
         detailRecolte.setId(detailRecolteId);
         detailRecolte.setArbre(arbre);
         detailRecolte.setRecolte(recolte);
-        detailRecolte.setDetailRecolte_id(UUID.randomUUID());
         DetailRecolte savedDetailRecolte = detailRecolteRepository.save(detailRecolte);
 
         return detailRecolteMapper.detailRecolteToResponseDTO(savedDetailRecolte);
@@ -62,8 +61,10 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
             return 2.5;
         } else if (age <= 10) {
             return 12.0;
-        } else {
+        } else if(age <= 20){
             return 20.0;
+        }else{
+            return 0;
         }
     }
 

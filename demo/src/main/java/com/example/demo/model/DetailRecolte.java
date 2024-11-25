@@ -12,8 +12,8 @@ public class DetailRecolte {
     @EmbeddedId
     private DetailRecolteId id;
 
-    @Column(name = "id", nullable = false, unique = true)
-    private UUID detailRecolte_id; //
+//    @Column(name = "id", nullable = false, unique = true)
+//    private UUID detailRecolte_id; //
 
     private double quantiteRecoltee;
 
