@@ -1,17 +1,19 @@
-package com.example.demo.DTO.Vente;
+package com.example.demo.DTO;
 
 import com.example.demo.model.Recolte;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VenteCreateDTO implements Serializable {
+public class VenteDTO {
+
+    private UUID id;
 
     private LocalDate date;
 

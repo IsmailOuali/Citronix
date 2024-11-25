@@ -14,6 +14,6 @@ public interface RecolteService {
     RecolteResponseDTO addRecolte (UUID champ, RecolteCreateDTO recolteCreateDTO);
     RecolteDTO updateRecolte (Recolte recolte);
     void deleteRecolte (UUID recolteId);
-    RecolteDTO getRecolteById(UUID id);
+    RecolteResponseDTO getRecolteById(UUID id);
     List<RecolteResponseDTO> getAllRecolte();
 }

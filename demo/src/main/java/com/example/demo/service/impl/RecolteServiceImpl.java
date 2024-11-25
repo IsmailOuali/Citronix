@@ -37,7 +37,7 @@ public class RecolteServiceImpl implements RecolteService {
 
     @Override
     public RecolteResponseDTO addRecolte(UUID champId, RecolteCreateDTO recolteCreateDTO) {
-        List<Arbre> arbresInChamp = arbreRepository.findByChampId(champId);
+            List<Arbre> arbresInChamp = arbreRepository.findByChampId(champId);
 
         if (arbresInChamp.isEmpty()) {
             throw new IllegalArgumentException("Champ has no Arbres for the Recolte.");
@@ -74,9 +74,9 @@ public class RecolteServiceImpl implements RecolteService {
     }
 
     @Override
-    public RecolteDTO getRecolteById(UUID id) {
-        Recolte recolte = recolteRepository.findById(id).orElse(null);
-        return mapToDTO(recolte);
+    public RecolteResponseDTO getRecolteById(UUID id) {
+        Recolte recolte = recolteRepository.findById(id).orElseThrow(() -> new CustomException("Recolte not found with id: " + id));
+        return recolteMapper.recolteToDTO(recolte);
     }
 
     @Override
@@ -86,12 +86,4 @@ public class RecolteServiceImpl implements RecolteService {
 
     }
 
-    private RecolteDTO mapToDTO(Recolte recolte) {
-        RecolteDTO recolteDTO = new RecolteDTO();
-        recolteDTO.setId(recolte.getId());
-        recolteDTO.setDateRecolte(recolte.getDateRecolte());
-        recolteDTO.setSaison(recolte.getSaison());
-        recolteDTO.setQuantiteTotale(recolte.getQuantiteTotale());
-        return recolteDTO;
-    }
 }

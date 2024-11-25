@@ -58,9 +58,9 @@ public class RecolteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RecolteDTO> getRecolteById(@PathVariable UUID id) {
-        RecolteDTO recolteDTO = recolteService.getRecolteById(id);
-        return ResponseEntity.ok(recolteDTO);
+    public ResponseEntity<RecolteResponseDTO> getRecolteById(@PathVariable UUID id) {
+        RecolteResponseDTO recolteResponseDTO = recolteService.getRecolteById(id);
+        return ResponseEntity.ok(recolteResponseDTO);
     }
 
 
