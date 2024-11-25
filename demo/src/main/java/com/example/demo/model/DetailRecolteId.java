@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class DetailRecolteId {
+public class DetailRecolteId implements Serializable {
 
 
     private UUID recolteId;
