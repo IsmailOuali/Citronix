@@ -5,6 +5,7 @@ import com.example.demo.DTO.Champ.ChampCreateDTO;
 import com.example.demo.DTO.Champ.ChampResponseDTO;
 import com.example.demo.DTO.ChampDTO;
 import com.example.demo.service.ChampService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,9 @@ public class ChampController {
     @Autowired
     private ChampService champService;  // Injecting ChampService
 
-    @PostMapping("/{fermeId}")
-    public ResponseEntity<ChampResponseDTO> addChamp(@PathVariable UUID fermeId, @RequestBody ChampCreateDTO champCreateDTO) {
-        ChampResponseDTO champResponseDTO = champService.addChamp(fermeId, champCreateDTO);
+    @PostMapping
+    public ResponseEntity<ChampResponseDTO> addChamp(@Valid @RequestBody ChampCreateDTO champCreateDTO) {
+        ChampResponseDTO champResponseDTO = champService.addChamp(champCreateDTO);
         return ResponseEntity.status(201).body(champResponseDTO);
     }
 

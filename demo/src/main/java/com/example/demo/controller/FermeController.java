@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.DTO.Ferme.FermeCreateDTO;
 import com.example.demo.DTO.Ferme.FermeResponseDTO;
+import com.example.demo.DTO.Ferme.FermeSearchCriteria;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.model.Ferme;
 import com.example.demo.service.FermeService;
@@ -58,5 +59,12 @@ public ResponseEntity<FermeResponseDTO> addFerme(@Valid @RequestBody FermeCreate
     public ResponseEntity<Void> deleteFerme(@PathVariable UUID id) {
         fermeService.deleteFermeById(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<FermeResponseDTO>> searchFermes(@ModelAttribute FermeSearchCriteria criteria) {
+        List<FermeResponseDTO> result = fermeService.searchFermes(criteria);
+        return ResponseEntity.ok(result);
     }
 }

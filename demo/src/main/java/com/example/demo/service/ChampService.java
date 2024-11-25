@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ChampService{
-    ChampResponseDTO addChamp(UUID fermeId, ChampCreateDTO champCreateDTO);
+    ChampResponseDTO addChamp(ChampCreateDTO champCreateDTO);
     ChampDTO updateChamp(ChampDTO champDTO);
     void deleteChampById(UUID id);
     ChampResponseDTO getChampById(UUID id);

@@ -32,25 +32,24 @@ public class ChampServiceImpl  implements ChampService {
 
 
     @Override
-    public ChampResponseDTO addChamp(UUID fermeId, ChampCreateDTO champCreateDTO) {
-        Ferme ferme = fermeRepository.findById(fermeId)
+    public ChampResponseDTO addChamp(ChampCreateDTO champCreateDTO) {
+        Champ champ = champMapper.createDTOtoChamp(champCreateDTO);
+
+        Ferme ferme = fermeRepository.findById(champ.getFerme().getId())
                 .orElseThrow(() -> new CustomException("Ferme not found"));
 
         double totalSuperficieChamps = ferme.getChamps().stream()
                 .mapToDouble(Champ::getSuperficie)
                 .sum();
 
-        if (champCreateDTO.getSuperficie() < 1000) {
-            throw new CustomException("La superficie d'un champ  doit pas dépasser 1000.");
-        }
 
-        if (totalSuperficieChamps + champCreateDTO.getSuperficie() > ferme.getSuperficie()) {
+        if (totalSuperficieChamps + champCreateDTO.getSuperficie() > ferme.getSuperficie() || ferme.getSuperficie()/2 < champCreateDTO.getSuperficie() ) {
             throw new CustomException("La somme des superficies des champs dépasse la superficie de la ferme.");
         }
 
-        Champ champ = champMapper.createDTOtoChamp(champCreateDTO);
-        champ.setFerme(ferme);
+
         Champ savedChamp = champRepository.save(champ);
+        savedChamp.setFerme(ferme);
 
         return champMapper.champToResponseDTO(savedChamp);
     }

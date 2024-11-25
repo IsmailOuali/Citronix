@@ -2,11 +2,13 @@ package com.example.demo.service.impl;
 
 import com.example.demo.DTO.Ferme.FermeCreateDTO;
 import com.example.demo.DTO.Ferme.FermeResponseDTO;
+import com.example.demo.DTO.Ferme.FermeSearchCriteria;
 import com.example.demo.DTO.FermeDTO;
 import com.example.demo.exception.CustomException;
 import com.example.demo.mapper.FermeMapper;
 import com.example.demo.model.Ferme;
 import com.example.demo.repository.FermeRepository;
+import com.example.demo.repository.custom.FermeCustomRepository;
 import com.example.demo.service.FermeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class FermeServiceImpl implements FermeService {
 
     @Autowired
     private FermeRepository fermeRepository;
+
+    @Autowired
+    private FermeCustomRepository fermeCustomRepository;
 
     @Autowired
     private FermeMapper fermeMapper;
@@ -67,7 +72,12 @@ public class FermeServiceImpl implements FermeService {
         fermeRepository.delete(existingFerme);
     }
 
-    // Utility method to map Ferme to FermeDTO
+    @Override
+    public List<FermeResponseDTO> searchFermes(FermeSearchCriteria criteria) {
+        List<Ferme> fermes = fermeCustomRepository.searchFermes(criteria);
+        return fermes.stream().map(fermeMapper::fermeToResponseDTO).collect(Collectors.toList());
+    }
+
     private FermeDTO mapToDTO(Ferme ferme) {
         FermeDTO fermeDTO = new FermeDTO();
         fermeDTO.setId(ferme.getId());

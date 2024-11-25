@@ -1,5 +1,6 @@
 package com.example.demo.DTO.Champ;
 
+import com.example.demo.DTO.Ferme.FermeResponseDTO;
 import com.example.demo.model.Arbre;
 import com.example.demo.model.Ferme;
 import jakarta.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class ChampResponseDTO {
 
     @ManyToOne
 
-    private Ferme ferme;
+    private FermeResponseDTO ferme;
 
-    private List<Arbre> arbres;
+//    private List<Arbre> arbres;
 }
