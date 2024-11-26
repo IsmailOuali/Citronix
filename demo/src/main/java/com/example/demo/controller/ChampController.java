@@ -20,7 +20,7 @@ public class ChampController {
     @Autowired
     private ChampService champService;
     @PostMapping
-    public ResponseEntity<ChampResponseDTO> addChamp(@Valid @RequestBody ChampCreateDTO champCreateDTO) {
+    public ResponseEntity<ChampResponseDTO> addChamp( @RequestBody ChampCreateDTO champCreateDTO) {
         ChampResponseDTO champResponseDTO = champService.addChamp(champCreateDTO);
         return ResponseEntity.status(201).body(champResponseDTO);
     }
