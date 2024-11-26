@@ -18,8 +18,7 @@ import java.util.UUID;
 public class ChampController {
 
     @Autowired
-    private ChampService champService;  // Injecting ChampService
-
+    private ChampService champService;
     @PostMapping
     public ResponseEntity<ChampResponseDTO> addChamp(@Valid @RequestBody ChampCreateDTO champCreateDTO) {
         ChampResponseDTO champResponseDTO = champService.addChamp(champCreateDTO);
@@ -30,7 +29,7 @@ public class ChampController {
     @PutMapping()
     public ResponseEntity<ChampDTO> updateChamp(@RequestBody ChampDTO champDTO) {
         ChampDTO updatedChamp = champService.updateChamp(champDTO);
-        return ResponseEntity.ok(updatedChamp);  // Returning updated ChampDTO with HTTP 200
+        return ResponseEntity.ok(updatedChamp);
     }
 
     // Delete a Champ by ID

@@ -39,11 +39,11 @@ public class VenteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseEntity> updateVente(@PathVariable UUID id, @RequestBody VenteCreateDTO venteCreateDTO) {
+    public ResponseEntity<VenteResponseDTO> updateVente(@PathVariable UUID id, @RequestBody VenteCreateDTO venteCreateDTO) {
 
         VenteResponseDTO vente = venteService.updateVente(venteCreateDTO);
 
-        return ResponseEntity.status(201).body(ResponseEntity.ok(vente));
+        return ResponseEntity.status(201).body(vente);
 
     }
 
