@@ -8,6 +8,7 @@ import com.example.demo.model.Recolte;
 import com.example.demo.model.Vente;
 import com.example.demo.service.RecolteService;
 import com.example.demo.service.VenteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class VenteController {
 
 
     @PostMapping("/{recolteId}")
-    public ResponseEntity<VenteResponseDTO> createVente(@PathVariable UUID recolteId, @RequestBody VenteCreateDTO venteCreateDTO) {
+    public ResponseEntity<VenteResponseDTO> createVente(@PathVariable UUID recolteId,@Valid @RequestBody VenteCreateDTO venteCreateDTO) {
         VenteResponseDTO venteResponseDTO = venteService.createVente(recolteId, venteCreateDTO);
         return ResponseEntity.ok(venteResponseDTO);
     }

@@ -4,6 +4,7 @@ import com.example.demo.DTO.Arbre.ArbreCreateDTO;
 import com.example.demo.DTO.Arbre.ArbreResponseDTO;
 import com.example.demo.DTO.ArbreDTO;
 import com.example.demo.service.ArbreService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class ArbreController {
     private ArbreService arbreService;
 
     @PostMapping("/{champId}")
-    public ResponseEntity<ArbreResponseDTO> addArbre(@PathVariable UUID champId, @RequestBody ArbreCreateDTO arbreCreateDTO) {
+    public ResponseEntity<ArbreResponseDTO> addArbre(@PathVariable UUID champId, @Valid @RequestBody ArbreCreateDTO arbreCreateDTO) {
         ArbreResponseDTO createdArbre = arbreService.addArbre(champId, arbreCreateDTO);
         return ResponseEntity.ok(createdArbre);
     }
