@@ -15,6 +15,9 @@ import com.example.demo.service.ArbreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +50,7 @@ public class ArbreServiceImpl implements ArbreService {
         }
 
         Arbre arbre = arbreMapper.createDTOToArbre(arbreCreateDTO);
+        validatePlantationDate(arbre.getDatePlantation());
         arbre.setChamp(champ);
         Arbre savedArbre = arbreRepository.save(arbre);
         return arbreMapper.arbreToResponseDTO(savedArbre);
@@ -83,5 +87,14 @@ public class ArbreServiceImpl implements ArbreService {
         Arbre existingArbre = arbreRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Arbre not found with id: " + id));
         arbreRepository.delete(existingArbre);
+    }
+
+    private  void validatePlantationDate(LocalDate datePlantation) {
+        if (datePlantation == null ||
+                (datePlantation.getMonth() != Month.MARCH &&
+                        datePlantation.getMonth() != Month.APRIL &&
+                        datePlantation.getMonth() != Month.MAY)) {
+            throw new IllegalArgumentException("The plantation date must be in March, April, or May.");
+        }
     }
 }
