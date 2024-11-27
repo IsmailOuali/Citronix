@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.DTO.Arbre.ArbreResponseDTO;
 import com.example.demo.DTO.Recolte.RecolteCreateDTO;
 import com.example.demo.DTO.Recolte.RecolteResponseDTO;
 import com.example.demo.DTO.RecolteDTO;
@@ -15,6 +16,7 @@ import com.example.demo.service.RecolteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -85,5 +87,20 @@ public class RecolteServiceImpl implements RecolteService {
         return recoltes.stream().map(recolteMapper::recolteToDTO).collect(Collectors.toList());
 
     }
+
+//    public Recolte addRecolteArbre(Arbre arbre){
+//        Recolte recolte = new Recolte();
+//        DetailRecolte detailRecolte = new DetailRecolte();
+//
+//        if(recolte.getDetailsRecolte().contains(arbre) ){
+//            if (detailRecolte.getRecolte().getSaison().equals("Hiver"){
+//                throw new CustomException("L'arbre est deja recolte");
+//            }
+//        }
+//        double quantiteRecolte =
+//        detailRecolte.setQuantiteRecoltee(detailRecolte.getQuantiteRecoltee());
+//
+//        detailRecolte.setArbre(arbre);
+//    }
 
 }
